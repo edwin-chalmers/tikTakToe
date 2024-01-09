@@ -1,3 +1,84 @@
 * {
     font-family: 'WindSong', cursive;
+    /* background-color: blueviolet; */
+    
 }
+
+body {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    background-color: rgb(153, 153, 216);
+    padding: 0;
+    margin: 0;
+}
+
+#background-image {
+    background-image: url("./assets/skelly-butterfly.jpg");
+    height: 100vh;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 70% 30%; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* <><><><><> grid <><><><><> */
+
+#grid-whole {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+    width: 600px;
+    border-radius: 600px;
+    z-index: 2;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: none;
+}
+
+.grid {
+    height: 100px;
+    width: 100px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 5px;
+}
+
+/* <><><><><> columns <><><><><> */
+
+.column {
+    height: 100vh;
+    width: 300px;
+    background-color: none;
+    z-index: 1;
+}
+
+#player1-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#player1-bubble {
+    height: 300px;
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 200px 200px 200px 0px
+}
+
+#player2-bubble {
+    height: 300px;
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 200px 0px 200px 200px
+}
+
