@@ -1,0 +1,1 @@
+const turnWhite = document.querySelectorall()
