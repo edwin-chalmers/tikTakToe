@@ -11,7 +11,7 @@ section {
     display: flex;
     justify-content: space-between;
     align-items:center;
-    background-color: rgb(153, 153, 216);
+    background: rgb(153, 153, 216);
     padding: 0;
     margin: 0;
     position: relative;
@@ -27,6 +27,15 @@ section {
     position: relative;
 }
 
+@keyframes scroll {
+    0%, 100% {
+        background-position: 70% 0%;
+    }
+    50% {
+        background-position: 70% 100%;
+    }
+}
+
 #background-image {
     background-image: url("./assets/skelly-butterfly.jpg");
     height: 100vh;
@@ -38,13 +47,15 @@ section {
     top: 0;
     left: 0;
     z-index: 0;
+
+    animation: scroll 100s linear infinite;
 }
 
 /* <><><><><> Win <><><><><> */
 
-#winText {
+#fieldText {
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 60px;
@@ -145,16 +156,6 @@ section {
 
 /* <><><><><> Global Styles <><><><><> */
 
-.text-glow-yellow {
-    text-shadow: 0 0 10px #FFD700,
-                 0 0 20px #FFD700;
-}
-
-.text-glow-red {
-    text-shadow: 0 0 10px #ff4400,
-                 0 0 20px #ff4400;
-}
-
 .circle {
     border-radius: 200px 200px 200px 200px;
 }
@@ -164,22 +165,27 @@ section {
 }
 
 .grid-color-white {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.7);
     box-shadow: 
-        0 0 10px 1px rgba(255, 255, 255, 0.7); /* white inner glow */
+        0 0 10px 1px rgba(255, 255, 255, 0.7); 
+    border: 3px #ffffff61;
+    border-style: dotted;
         
 }
 .grid-color-invert {
     border: 1px black;
     filter: invert();
-    box-shadow: 
-    0 0 10px 1px rgba(253, 253, 253, 0.7); /* white inner glow */
+    border: 3px #ffffff61;
+    border-style: dotted;
+    box-shadow: 0 0 10px 1px rgba(253, 253, 253, 0.7);
 }
 
 .bubble-win {
-    box-shadow: 0 0 50px 10px rgb(255, 255, 255), /* white glow */
-                0 0 50px 10px rgba(255, 255, 255, 0.706); /* green glow */
+    box-shadow: 0 0 50px 10px rgb(255, 255, 255),
+                0 0 50px 10px rgba(255, 255, 255, 0.706);
     background-color: rgba(255, 255, 255, 0.8) !important;
 }   
 
-
+.hidden {
+    display: none;
+}
