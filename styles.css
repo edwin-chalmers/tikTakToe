@@ -1,16 +1,30 @@
 * {
     font-family: 'WindSong', cursive;
-    /* background-color: blueviolet; */
-    
+    /* background-color: blueviolet; */   
 }
 
 body {
+    margin: 0;
+}
+
+section {
     display: flex;
     justify-content: space-between;
     align-items:center;
     background-color: rgb(153, 153, 216);
     padding: 0;
     margin: 0;
+    position: relative;
+}
+
+#player-field {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    background-color: rgb(153, 153, 216);
+    padding: 0;
+    margin: 0;
+    position: relative;
 }
 
 #background-image {
@@ -26,7 +40,19 @@ body {
     z-index: 0;
 }
 
+/* <><><><><> Win <><><><><> */
+
+#winText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    z-index: 1; 
+}
+
 /* <><><><><> grid <><><><><> */
+
 
 #grid-whole {
     display: flex;
@@ -36,7 +62,8 @@ body {
     height: 600px;
     width: 600px;
     border-radius: 600px;
-    z-index: 2;
+    z-index: 3;
+    position: relative;
 }
 
 .row {
@@ -51,6 +78,10 @@ body {
     width: 100px;
     background-color: rgba(255, 255, 255, 0.3);
     margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
 }
 
 /* <><><><><> columns <><><><><> */
@@ -60,6 +91,7 @@ body {
     width: 300px;
     background-color: none;
     z-index: 1;
+    padding-right: 20px;
 }
 
 #player1-column {
@@ -71,14 +103,83 @@ body {
 #player1-bubble {
     height: 300px;
     width: 300px;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 200px 200px 200px 0px
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 200px 200px 200px 0px;
+    margin: 0px 0px 20px 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #player2-bubble {
+    filter: invert();
     height: 300px;
     width: 300px;
     background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 200px 0px 200px 200px
+    border-radius: 200px 0px 200px 200px;
+    margin-top: 20px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
+.text{
+    Color: rgb(60, 60, 60);
+    font-size: 30px;
+    margin-bottom: -25px;
+    text-shadow: 0 0 10px #ffffff,
+                 0 0 20px #ffffff,
+                 0 0 30px #ffffff,
+                 0 0 40px #ffffff;
+}
+
+.points {
+    color: (60, 60, 60);
+    font-size: 80px;
+    margin: 0;
+}
+
+/* <><><><><> Global Styles <><><><><> */
+
+.text-glow-yellow {
+    text-shadow: 0 0 10px #FFD700,
+                 0 0 20px #FFD700;
+}
+
+.text-glow-red {
+    text-shadow: 0 0 10px #ff4400,
+                 0 0 20px #ff4400;
+}
+
+.circle {
+    border-radius: 200px 200px 200px 200px;
+}
+
+.lemon {
+    border-radius: 200px 0px 200px 0px;
+}
+
+.grid-color-white {
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 
+        0 0 10px 1px rgba(255, 255, 255, 0.7); /* white inner glow */
+        
+}
+.grid-color-invert {
+    border: 1px black;
+    filter: invert();
+    box-shadow: 
+    0 0 10px 1px rgba(253, 253, 253, 0.7); /* white inner glow */
+}
+
+.bubble-win {
+    box-shadow: 0 0 50px 10px rgb(255, 255, 255), /* white glow */
+                0 0 50px 10px rgba(255, 255, 255, 0.706); /* green glow */
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}   
+
 

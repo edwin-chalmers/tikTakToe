@@ -6,29 +6,39 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;600;700&family=WindSong&family=Yanone+Kaffeesatz:wght@200;400&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div class="column" id="player1-column">
-            <div id="player1-bubble"></div>
-        </div>
-        <div id="grid-whole">
-            <div class="row" id="top-row">
-                <div class="grid" id="box0"></div>
-                <div class="grid" id="box1"></div>
-                <div class="grid" id="box2"></div>
+        <section>
+            <div class="column" id="player1-column">
+                <div id="player1-bubble" class="bubble-win">
+                    <p id="player1-text" class="text">Player 1</p>
+                    <p id="player1-points" class="text points">4</p>
+                </div>
             </div>
-            <div class="row" id="middle-row">
-                <div class="grid" id="box3"></div>
-                <div class="grid" id="box4"></div>
-                <div class="grid" id="box5"></div>
+            <div id="grid-whole" class="">
+                <div class="row" id="top-row">
+                    <div class="grid circle grid-color-white" id="box0">
+                    </div>
+                    <div class="grid circle grid-color-invert" id="box1"></div>
+                    <div class="grid lemon" id="box2"></div>
+                </div>
+                <div class="row" id="middle-row">
+                    <div class="grid circle" id="box3"></div>
+                    <div class="grid lemon" id="box4"></div>
+                    <div class="grid circle grid-color-invert" id="box5"></div>
+                </div>
+                <div class="row"  id="bottom-row">
+                    <div class="grid lemon" id="box6"></div>
+                    <div class="grid circle" id="box7"></div>
+                    <div class="grid circle" id="box8"></div>
+                </div>
             </div>
-            <div class="row"  id="bottom-row">
-                <div class="grid" id="box6"></div>
-                <div class="grid" id="box7"></div>
-                <div class="grid" id="box8"></div>
+            <div class="column" id="player2-column">
+                <div id="player2-bubble" class="bubble-win">
+                    <p id="player2-text" class="text">Player 2</p>
+                    <p id="player2-points" class="text points">3</p>
+                </div>
             </div>
-        </div>
-        <div class="column" id="player2-column">
-            <div id="player2-bubble"></div>
-        </div>
+        </section>
+        <text id="winText">Player 1 Wins</text>
         <div id="background-image"></div>
     </body>
 </html>
