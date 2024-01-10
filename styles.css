@@ -95,13 +95,7 @@ section {
     padding-right: 20px;
 }
 
-#player1-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-}
-
-#player1-bubble {
+#white-bubble {
     height: 300px;
     width: 300px;
     background-color: rgba(255, 255, 255, 0.4);
@@ -114,7 +108,7 @@ section {
     align-items: center;
 }
 
-#player2-bubble {
+#invert-bubble {
     filter: invert();
     height: 300px;
     width: 300px;

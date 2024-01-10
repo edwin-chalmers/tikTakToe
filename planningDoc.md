@@ -13,7 +13,7 @@ How can you guarantee the order in which your win condition array is reading the
 Win conditions:
 012 345 678 horizontal 
 036 147 258 vertical 
-046 246 diagonal 
+048 246 diagonal 
 
 ## Design 
 three horizontal rows of flex box 
@@ -43,3 +43,21 @@ each box is styled with extended boarders to create the grid #
 9. Extension: Persist player data using local storage (number of wins should persist across page refreshes)
 
 10. Extension: Refactor your code to organized your game logic and DOM related JS separately in 2 different JS files - `main.js` and `domUpdates.js`
+
+## Alt
+
+1. initializeGame: Sets up the initial game state. Initializes player data, game board, and any other necessary variables.
+
+2. updatePlayerData: Updates the player's data (like points, name, etc.) based on game events. This function can be called after a player scores a point or makes a move.
+
+3. renderPlayerData: Reflects the current data of players (like points) on the UI. This function can update elements like player1-points and player2-points to show the current score.
+
+4. handlePlayerMove: Processes a player's move. This includes updating the game board state, checking for win conditions, and switching turns between players.
+
+5. checkWinCondition: Checks if the current state of the game board results in a win for either player. This can include checking rows, columns, and diagonals for a sequence of the same player's marks.
+
+6. displayWinner: Shows a message or updates the UI to indicate which player has won, or if the game is a draw. This might involve updating fieldText.
+
+7. resetGame: Resets the game to its initial state. This can be used to start a new game after one has concluded.
+
+8. togglePlayerHighlight: Adds visual cues to indicate which player's turn it is. For example, you might add a class to player1-bubble or player2-bubble to highlight them.
