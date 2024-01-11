@@ -6,7 +6,6 @@ const whitePoints = document.querySelector('#white-points')
 // <><><> Player 2
 const invertPoints = document.querySelector('#invert-points')
 const invertBubble = document.querySelector('#invert-bubble')
-var fieldText = document.getElementById(`fieldText`)
 
 // <><><> Global Variables
 var isWhiteTurn = true
@@ -20,21 +19,58 @@ var invertPositions = []
 const winConditions = 
 ['012', '345', '678', '036', '147', '258', '048', '246']
 
+// <><><> Add the individual player positions to their respetive arrays
+function playerPosition(gridID) {
+    if (isWhiteTurn === false) {
+        whitePositions.push(gridID);
+    } else if (isWhiteTurn === true) {
+        invertPositions.push(gridID);
+    }
+}
+
+//  <><><> Log the positions of each player 
+function logPositions() {
+    var grid = gridPositions
+    var whitePositions = ''
+    var invertPositions = ''
+
+    for (var i = 0; i < grid.length; i++) {
+        if (grid[i] === 'white') {
+            whitePositions += i.toString()
+        }
+    }
+    for (var i = 0; i < grid.length; i++) {
+        if (grid[i] === 'invert') {
+            invertPositions += i.toString()
+        }
+    }
+
+    console.log("white: ", whitePositions)
+    console.log("invert: ", invertPositions)
+}
+
+
+
+
 // <><><> Select Individual Grid Elements return ID
 grids.forEach(grid => {
     grid.addEventListener("click", function() {
         var gridID = grid.getAttribute('id');
-        // call functions here //
-        console.log(gridID)
+
         changeTurn()
         logPosition(gridID)
         turnColor(gridID)       
         playerPosition(gridID)
+        logPositions()
+    
+        // console.log(gridID)
     });
 });
 
 // <><><> Switches between players after they make a turn
 function changeTurn() {
+    var fieldText = document.getElementById(`fieldText`)
+
     if (isWhiteTurn === true) {
         isWhiteTurn = false
         fieldText.innerText = "Invert's Turn"
@@ -66,14 +102,7 @@ function turnColor(gridID) {
     }
 }
 
-// <><><> Add the individual player positions to their respetive arrays
-function playerPosition(gridID) {
-    if (isWhiteTurn === false) {
-        whitePositions.push(gridID);
-    } else if (isWhiteTurn === true) {
-        invertPositions.push(gridID);
-    }
-}
+
 
 
 
