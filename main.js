@@ -9,7 +9,7 @@ const invertBubble = document.querySelector('#invert-bubble')
 const fieldText = document.querySelector('#fieldText')
 
 // <><><> Global Variables
-var iswhiteTurn = true
+var isWhiteTurn = false
 
 var playerPositions = [null, null, null, null, null, null, null, null, null]
 
@@ -30,25 +30,67 @@ function playerWins(points) {
     points.innerText = score
 }
 
-
-
-
 // <><><> Select Individual Grid Elements return ID
 grids.forEach(grid => {
     grid.addEventListener("click", function() {
         var gridID = grid.getAttribute('id');
         // call functions here //
         console.log(gridID)
-        addWhite(gridID)
+        changeTurnColor()
+        logPosition(gridID)
+        turnColor(gridID)       
     });
 });
 
-function addWhite(gridID) {
-    if (playerPositions[gridID] === null) {
-        playerPositions[gridID] = 'white'
+// <><><> Switches between players after they make a turn
+function changeTurnColor() {
+    if (isWhiteTurn === true) {
+        isWhiteTurn = false
+    } else {
+        isWhiteTurn = true
     }
 }
 
+// Logs respective playercolor to the data playerPositions
+function logPosition(gridID) {
+    if (playerPositions[gridID] === null) {
+        if (isWhiteTurn === true) {
+            playerPositions[gridID] = 'white'
+        } else {
+            playerPositions[gridID] = 'invert'
+        }
+    }
+}
+
+// Changes the respective grid color based on playerPositions
+function turnColor(gridID) {
+    var grid = document.getElementById(`${gridID}`)
+    if (playerPositions[gridID] === 'white') {
+        grid.classList.add('grid-color-white') 
+    }
+    if (playerPositions[gridID] === 'invert') {
+        grid.classList.add('grid-color-invert') 
+    }
+}
+
+
+
+
+
+// function turnColor(gridID) { 
+//     for (i = 0; i < playerPositions.length; i++) {
+//         if (playerPositions[i] = 'white') {
+
+//         }
+//     }
+    
+// }
+
+// function turnWhite(gridID) {
+//     var grid = document.getElementById(`${gridID}`)
+//     grid.classList.add('grid-color-white')
+//     isPlayer1Turn = false
+// }
 
 
 
