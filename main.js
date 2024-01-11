@@ -4,7 +4,7 @@ const grids = document.querySelectorAll('.grid')
 const whitePoints = document.querySelector('#white-points')
 
 // <><><> Player 2
-const invertPoints = document.querySelector('#invert-points')
+// const invertPoints = document.querySelector('#invert-points')
 const invertBubble = document.querySelector('#invert-bubble')
 
 // <><><> Global Variables
@@ -17,7 +17,7 @@ const winConditions =
 ['012', '345', '678', '036', '147', '258', '048', '246']
 
 
-//  <><><> Log the positions of each player 
+//  <><><> Log the positions of each player >> checkForWin
 function logPositions() {
     var playerPositions = {
         whitePositions: '',
@@ -38,15 +38,28 @@ function logPositions() {
     checkForWin(playerPositions,)
 }
 
-// 
+// check if win condition has been met >> playerWins
 function checkForWin(playerPositions) {
     if (winConditions.includes(playerPositions.whitePositions)) {
         console.log('White Wins')
-        // White Wins Function
+        playerWins('white')
     } else if (winConditions.includes(playerPositions.invertPositions)) {
         console.log('Invert Wins')
-        // Invert Wins Function
+        playerWins('invert')
     }
+}
+
+// calls all the functions associated with a win 
+function playerWins(player) {
+    pointsUp(player)
+    
+}
+
+function pointsUp(player) {
+    var points = document.querySelector(`#${player}-points`)
+    score = parseInt(points.innerText)
+    score += 1
+    points.innerText = score
 }
 
 
@@ -93,15 +106,10 @@ function turnColor(gridID) {
     var grid = document.getElementById(`${gridID}`)
     if (gridPositions[gridID] === 'white') {
         grid.classList.add('grid-color-white') 
-    }
-    if (gridPositions[gridID] === 'invert') {
+    } else if (gridPositions[gridID] === 'invert') {
         grid.classList.add('grid-color-invert') 
     }
 }
-
-
-
-
 
 function invertWins() {
     score = parseInt(invertPoints.innerText)
@@ -109,9 +117,9 @@ function invertWins() {
     invertPoints.innerText = score
 }
 
-function playerWins(points) {
-    score = parseInt(points.innerText)
-    score += 1
-    points.innerText = score
-}
+// function playerWins(points) {
+//     score = parseInt(points.innerText)
+//     score += 1
+//     points.innerText = score
+// }
 
