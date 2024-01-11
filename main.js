@@ -12,47 +12,45 @@ var isWhiteTurn = true
 
 var gridPositions = 
 [null, null, null, null, null, null, null, null, null]
-var whitePositions = []
-var invertPositions = []
-
 
 const winConditions = 
 ['012', '345', '678', '036', '147', '258', '048', '246']
 
-// <><><> Add the individual player positions to their respetive arrays
-function playerPosition(gridID) {
-    if (isWhiteTurn === false) {
-        whitePositions.push(gridID);
-    } else if (isWhiteTurn === true) {
-        invertPositions.push(gridID);
-    }
-}
 
 //  <><><> Log the positions of each player 
 function logPositions() {
-    var grid = gridPositions
-    var whitePositions = ''
-    var invertPositions = ''
-
-    for (var i = 0; i < grid.length; i++) {
-        if (grid[i] === 'white') {
-            whitePositions += i.toString()
-        }
+    var playerPositions = {
+        whitePositions: '',
+        invertPositions: ''
     }
-    for (var i = 0; i < grid.length; i++) {
-        if (grid[i] === 'invert') {
-            invertPositions += i.toString()
+
+    for (var i = 0; i < gridPositions.length; i++) {
+        if (gridPositions[i] === 'white') {
+            playerPositions.whitePositions += i.toString()
+        } else if (gridPositions[i] === 'invert') {
+            playerPositions.invertPositions += i.toString()
         }
     }
 
-    console.log("white: ", whitePositions)
-    console.log("invert: ", invertPositions)
+    console.log("white: ", playerPositions.whitePositions)
+    console.log("invert: ", playerPositions.invertPositions)
+    
+    checkForWin(playerPositions,)
+}
+
+// 
+function checkForWin(playerPositions) {
+    if (winConditions.includes(playerPositions.whitePositions)) {
+        console.log('White Wins')
+        // White Wins Function
+    } else if (winConditions.includes(playerPositions.invertPositions)) {
+        console.log('Invert Wins')
+        // Invert Wins Function
+    }
 }
 
 
-
-
-// <><><> Select Individual Grid Elements return ID
+// <><><> Select Individual Grid Elements and return ID
 grids.forEach(grid => {
     grid.addEventListener("click", function() {
         var gridID = grid.getAttribute('id');
@@ -60,7 +58,6 @@ grids.forEach(grid => {
         changeTurn()
         logPosition(gridID)
         turnColor(gridID)       
-        playerPosition(gridID)
         logPositions()
     
         // console.log(gridID)
