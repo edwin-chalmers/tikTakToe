@@ -6,15 +6,74 @@ const whitePoints = document.querySelector('#white-points')
 // <><><> Player 2
 const invertPoints = document.querySelector('#invert-points')
 const invertBubble = document.querySelector('#invert-bubble')
-const fieldText = document.querySelector('#fieldText')
+var fieldText = document.getElementById(`fieldText`)
 
 // <><><> Global Variables
 var isWhiteTurn = true
 
-var playerPositions = [null, null, null, null, null, null, null, null, null]
+var gridPositions = 
+[null, null, null, null, null, null, null, null, null]
+var whitePositions = []
+var invertPositions = []
+
 
 const winConditions = 
 ['012', '345', '678', '036', '147', '258', '048', '246']
+
+// <><><> Select Individual Grid Elements return ID
+grids.forEach(grid => {
+    grid.addEventListener("click", function() {
+        var gridID = grid.getAttribute('id');
+        // call functions here //
+        console.log(gridID)
+        changeTurn()
+        logPosition(gridID)
+        turnColor(gridID)       
+        playerPosition(gridID)
+    });
+});
+
+// <><><> Switches between players after they make a turn
+function changeTurn() {
+    if (isWhiteTurn === true) {
+        isWhiteTurn = false
+        fieldText.innerText = "Invert's Turn"
+    } else {
+        isWhiteTurn = true
+        fieldText.innerText = "White's Turn"
+    }
+}
+
+// Logs respective playercolor to the data playerPositions
+function logPosition(gridID) {
+    if (gridPositions[gridID] === null) {
+        if (isWhiteTurn === true) {
+            gridPositions[gridID] = 'invert'
+        } else {
+            gridPositions[gridID] = 'white'
+        }
+    }
+}
+
+// Changes the respective grid color based on playerPositions
+function turnColor(gridID) {
+    var grid = document.getElementById(`${gridID}`)
+    if (gridPositions[gridID] === 'white') {
+        grid.classList.add('grid-color-white') 
+    }
+    if (gridPositions[gridID] === 'invert') {
+        grid.classList.add('grid-color-invert') 
+    }
+}
+
+// <><><> Add the individual player positions to their respetive arrays
+function playerPosition(gridID) {
+    if (isWhiteTurn === false) {
+        whitePositions.push(gridID);
+    } else if (isWhiteTurn === true) {
+        invertPositions.push(gridID);
+    }
+}
 
 
 
@@ -30,104 +89,3 @@ function playerWins(points) {
     points.innerText = score
 }
 
-// <><><> Select Individual Grid Elements return ID
-grids.forEach(grid => {
-    grid.addEventListener("click", function() {
-        var gridID = grid.getAttribute('id');
-        // call functions here //
-        console.log(gridID)
-        changeTurn()
-        logPosition(gridID)
-        turnColor(gridID)       
-    });
-});
-
-// <><><> Switches between players after they make a turn
-function changeTurn() {
-    var fieldText = document.getElementById(`fieldText`)
-    if (isWhiteTurn === true) {
-        isWhiteTurn = false
-        fieldText.innerText = "Invert's Turn"
-    } else {
-        isWhiteTurn = true
-        fieldText.innerText = "White's Turn"
-    }
-}
-
-// Logs respective playercolor to the data playerPositions
-function logPosition(gridID) {
-    if (playerPositions[gridID] === null) {
-        if (isWhiteTurn === true) {
-            playerPositions[gridID] = 'invert'
-        } else {
-            playerPositions[gridID] = 'white'
-        }
-    }
-}
-
-// Changes the respective grid color based on playerPositions
-function turnColor(gridID) {
-    var grid = document.getElementById(`${gridID}`)
-    if (playerPositions[gridID] === 'white') {
-        grid.classList.add('grid-color-white') 
-    }
-    if (playerPositions[gridID] === 'invert') {
-        grid.classList.add('grid-color-invert') 
-    }
-}
-
-
-
-
-
-// function turnColor(gridID) { 
-//     for (i = 0; i < playerPositions.length; i++) {
-//         if (playerPositions[i] = 'white') {
-
-//         }
-//     }
-    
-// }
-
-// function turnWhite(gridID) {
-//     var grid = document.getElementById(`${gridID}`)
-//     grid.classList.add('grid-color-white')
-//     isPlayer1Turn = false
-// }
-
-
-
-// grids.forEach(grid => {
-//     grid.addEventListener("click", function() {
-//         var gridID = grid.getAttribute('id');
-//         if (isPlayer1Turn === true && (!this.classList.contains('grid-color-white') || !this.classList.contains('grid-color-invert'))) {
-//             turnWhite(gridID)
-//         } else {
-//             turnInvert(gridID)
-//         }
-//     });
-// });
-
-// <><><> Change Styles
-// function turnWhite(gridID) {
-//     var grid = document.getElementById(`${gridID}`)
-//     grid.classList.add('grid-color-white')
-//     isPlayer1Turn = false
-// }
-
-// function turnInvert(gridID) {
-//     var grid = document.getElementById(`${gridID}`)
-//     grid.classList.add('grid-color-invert')
-//     isPlayer1Turn = true
-// }
-
-
-
-
-
-
-
-function alternatePlayer(gridID) {
-    var grid = document.getElementById(`${gridID}`)
-
-}
