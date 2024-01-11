@@ -9,7 +9,7 @@ const invertBubble = document.querySelector('#invert-bubble')
 const fieldText = document.querySelector('#fieldText')
 
 // <><><> Global Variables
-var isWhiteTurn = false
+var isWhiteTurn = true
 
 var playerPositions = [null, null, null, null, null, null, null, null, null]
 
@@ -36,18 +36,21 @@ grids.forEach(grid => {
         var gridID = grid.getAttribute('id');
         // call functions here //
         console.log(gridID)
-        changeTurnColor()
+        changeTurn()
         logPosition(gridID)
         turnColor(gridID)       
     });
 });
 
 // <><><> Switches between players after they make a turn
-function changeTurnColor() {
+function changeTurn() {
+    var fieldText = document.getElementById(`fieldText`)
     if (isWhiteTurn === true) {
         isWhiteTurn = false
+        fieldText.innerText = "Invert's Turn"
     } else {
         isWhiteTurn = true
+        fieldText.innerText = "White's Turn"
     }
 }
 
@@ -55,9 +58,9 @@ function changeTurnColor() {
 function logPosition(gridID) {
     if (playerPositions[gridID] === null) {
         if (isWhiteTurn === true) {
-            playerPositions[gridID] = 'white'
-        } else {
             playerPositions[gridID] = 'invert'
+        } else {
+            playerPositions[gridID] = 'white'
         }
     }
 }
