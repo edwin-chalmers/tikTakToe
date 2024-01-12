@@ -106,13 +106,19 @@ function checkForWin(playerPositions) {
 
 // CheckForWin() >> calls all the functions associated with a win >> ...
 function playerWins(player) {
-    // resert gridPositions array
     increasePoints(player)
     announceWin(player) 
-    removeColors()
-    resetFieldText()
-    // Keep players from licking more grids after win
-    // JS timeout 
+    
+    setTimeout(() => {
+        removeColors()
+        resetGridPoitions()
+        resetFieldText()
+    }, 1000)
+}
+
+function resetGridPoitions() {
+    gridPositions = 
+    [null, null, null, null, null, null, null, null, null]
 }
 
 // playerWins() >> increases player point count by 1 when the win condition is met
