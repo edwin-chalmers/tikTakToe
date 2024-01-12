@@ -16,10 +16,10 @@ var gridPositions =
 const winConditions = 
 ['012', '345', '678', '036', '147', '258', '048', '246']
 
-// *** win condition doesn't work if player has 4 spots ***
+// *** win condition doesn't work if player has 4 spots/.includes()? ***
 // *** refactor logPositions ***
 // *** refactor grids.forEach to globalize gridID ***
-// *** refactor removeColors to globalize gridID ***
+// *** refactor removeColors to remove global gridID ***
 
 
 
@@ -80,6 +80,7 @@ function logPositions() {
 
     for (var i = 0; i < gridPositions.length; i++) {
         if (gridPositions[i] === 'white') {
+            console.log(playerPositions.whitePositions)
             playerPositions.whitePositions += i.toString()
         } else if (gridPositions[i] === 'invert') {
             playerPositions.invertPositions += i.toString()
@@ -105,9 +106,11 @@ function checkForWin(playerPositions) {
 
 // CheckForWin() >> calls all the functions associated with a win >> ...
 function playerWins(player) {
+    // resert gridPositions array
     increasePoints(player)
     announceWin(player) 
     removeColors()
+    resetFieldText()
     // Keep players from licking more grids after win
     // JS timeout 
 }
@@ -143,16 +146,10 @@ function removeColors() {
     })
 }
 
-
-// function invertWins() {
-//     score = parseInt(invertPoints.innerText)
-//     score += 1
-//     invertPoints.innerText = score
-// }
-
-// function playerWins(points) {
-//     score = parseInt(points.innerText)
-//     score += 1
-//     points.innerText = score
-// }
-
+function resetFieldText() {
+    if (isWhiteTurn === true) {
+        fieldText.innerText = "White's Turn"
+    } else {
+        fieldText.innerText = "Invert's Turn"
+    }
+}
