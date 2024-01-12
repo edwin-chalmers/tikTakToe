@@ -24,7 +24,23 @@ const winConditions =
 // *** refactor grids.forEach to globalize gridID ***
 // *** refactor removeColors to remove global gridID ***
 
+// function checkForDraw() {
+//     if (!gridPositions.includes(null)) {
+//         gameActive = false
+//         announceDraw()
+//         setTimeout(() => {
+//             removeColors()
+//             resetGridPoitions()
+//             resetFieldText()
+//             startNewGame()
+//         }, 1000)
+//     }
+// }
 
+// function announceDraw() {
+//     fieldText = document.querySelector(`#fieldText`)
+//     fieldText.innerText = `Draw`
+// }
 
 // <><><> Select Individual Grid Elements and return ID >> ..
 grids.forEach(grid => {
@@ -97,14 +113,33 @@ function logPositions() {
     checkForWin(playerPositions,)
 }
 
+// function checkForWin(playerPositions) {
+//    for (i = 0; i < winConditions.length; i++) {
+//        if (playerPositions.whitePositions.includes(winConditions[i])) {
+//            playerWins('white')
+//        } else if (playerPositions.invertPositions.includes(winConditions[i])) {
+//            playerWins('invert')
+//        }
+//    }
+// }
+
 function checkForWin(playerPositions) {
-   for (i = 0; i < winConditions.length; i++) {
-       if (playerPositions.whitePositions.includes(winConditions[i])) {
-           playerWins('white')
-       } else if (playerPositions.whitePositions.includes(winConditions[i])) {
-           playerWins('invert')
-       }
-   }
+    winConditions.forEach(condition => {
+        if (isWinConditionMet(condition, playerPositions.whitePositions)) {
+            playerWins('white');
+        } else if (isWinConditionMet(condition, playerPositions.invertPositions)) {
+            playerWins('invert');
+        }
+    });
+}
+
+function isWinConditionMet(condition, playerPositions) {
+    for (let char of condition) {
+        if (!playerPositions.includes(char)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 // CheckForWin() >> calls all the functions associated with a win >> ...
@@ -167,4 +202,3 @@ function resetFieldText() {
 function startNewGame() {
     gameActive = true
 }
-
