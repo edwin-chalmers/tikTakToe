@@ -10,13 +10,16 @@ const invertBubble = document.querySelector('#invert-bubble')
 // <><><> Global Variables
 var isWhiteTurn = true
 
+var gameActive = true
+
 var gridPositions = 
 [null, null, null, null, null, null, null, null, null]
 
 const winConditions = 
 ['012', '345', '678', '036', '147', '258', '048', '246']
 
-// *** win condition doesn't work if player has 4 spots/.includes()? ***
+// *** draw condition ***
+
 // *** refactor logPositions ***
 // *** refactor grids.forEach to globalize gridID ***
 // *** refactor removeColors to remove global gridID ***
@@ -26,8 +29,9 @@ const winConditions =
 // <><><> Select Individual Grid Elements and return ID >> ..
 grids.forEach(grid => {
     grid.addEventListener("click", function() {
-        var gridID = grid.getAttribute('id');
-
+        if (!gameActive) return
+        
+        var gridID = grid.getAttribute('id')
         changeTurn()
         logPosition(gridID)
         addColor(gridID)       
@@ -87,38 +91,33 @@ function logPositions() {
         }
     }
 
-    console.log("white: ", playerPositions.whitePositions)
-    console.log("invert: ", playerPositions.invertPositions)
+    // console.log("white: ", playerPositions.whitePositions)
+    // console.log("invert: ", playerPositions.invertPositions)
     
     checkForWin(playerPositions,)
 }
 
-// logPositions() >> check if win condition has been met >> playerWins()
 function checkForWin(playerPositions) {
-    if (winConditions.includes(playerPositions.whitePositions)) {
-        // console.log('White Wins')
-        playerWins('white')
-    } else if (winConditions.includes(playerPositions.invertPositions)) {
-        // console.log('Invert Wins')
-        playerWins('invert')
-    }
+   for (i = 0; i < winConditions.length; i++) {
+       if (playerPositions.whitePositions.includes(winConditions[i])) {
+           playerWins('white')
+       } else if (playerPositions.whitePositions.includes(winConditions[i])) {
+           playerWins('invert')
+       }
+   }
 }
 
 // CheckForWin() >> calls all the functions associated with a win >> ...
 function playerWins(player) {
+    gameActive = false
     increasePoints(player)
     announceWin(player) 
-    
     setTimeout(() => {
         removeColors()
         resetGridPoitions()
         resetFieldText()
+        startNewGame()
     }, 1000)
-}
-
-function resetGridPoitions() {
-    gridPositions = 
-    [null, null, null, null, null, null, null, null, null]
 }
 
 // playerWins() >> increases player point count by 1 when the win condition is met
@@ -140,7 +139,7 @@ function capitalizeFirstLetter(player) {
     return player.charAt(0).toUpperCase() + player.slice(1);
 }
 
-// playerWins() >>
+// playerWins() >> removes the color styling from the board
 function removeColors() {
     grids.forEach(grid => {
         var gridID = grid.getAttribute('id');
@@ -152,6 +151,11 @@ function removeColors() {
     })
 }
 
+function resetGridPoitions() {
+    gridPositions = 
+    [null, null, null, null, null, null, null, null, null]
+}
+
 function resetFieldText() {
     if (isWhiteTurn === true) {
         fieldText.innerText = "White's Turn"
@@ -159,3 +163,8 @@ function resetFieldText() {
         fieldText.innerText = "Invert's Turn"
     }
 }
+
+function startNewGame() {
+    gameActive = true
+}
+
