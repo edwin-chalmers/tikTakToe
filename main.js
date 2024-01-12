@@ -24,23 +24,6 @@ const winConditions =
 // *** refactor grids.forEach to globalize gridID ***
 // *** refactor removeColors to remove global gridID ***
 
-// function checkForDraw() {
-//     if (!gridPositions.includes(null)) {
-//         gameActive = false
-//         announceDraw()
-//         setTimeout(() => {
-//             removeColors()
-//             resetGridPoitions()
-//             resetFieldText()
-//             startNewGame()
-//         }, 1000)
-//     }
-// }
-
-// function announceDraw() {
-//     fieldText = document.querySelector(`#fieldText`)
-//     fieldText.innerText = `Draw`
-// }
 
 // <><><> Select Individual Grid Elements and return ID >> ..
 grids.forEach(grid => {
@@ -109,19 +92,9 @@ function logPositions() {
 
     // console.log("white: ", playerPositions.whitePositions)
     // console.log("invert: ", playerPositions.invertPositions)
-    
     checkForWin(playerPositions,)
+    checkForDraw()
 }
-
-// function checkForWin(playerPositions) {
-//    for (i = 0; i < winConditions.length; i++) {
-//        if (playerPositions.whitePositions.includes(winConditions[i])) {
-//            playerWins('white')
-//        } else if (playerPositions.invertPositions.includes(winConditions[i])) {
-//            playerWins('invert')
-//        }
-//    }
-// }
 
 function checkForWin(playerPositions) {
     winConditions.forEach(condition => {
@@ -172,6 +145,25 @@ function announceWin(player) {
 // >> capatalizes the first letter of the player's name
 function capitalizeFirstLetter(player) {
     return player.charAt(0).toUpperCase() + player.slice(1);
+}
+
+
+function checkForDraw() {
+    if (!gridPositions.includes(null)) {
+        gameActive = false
+        announceDraw()
+        setTimeout(() => {
+            removeColors()
+            resetGridPoitions()
+            resetFieldText()
+            startNewGame()
+        }, 1000)
+    }
+}
+
+function announceDraw() {
+    fieldText = document.querySelector(`#fieldText`)
+    fieldText.innerText = `Draw`
 }
 
 // playerWins() >> removes the color styling from the board
