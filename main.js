@@ -18,11 +18,11 @@ var gridPositions =
 const winConditions = 
 ['012', '345', '678', '036', '147', '258', '048', '246']
 
-// *** draw condition ***
-
 // *** refactor logPositions ***
 // *** refactor grids.forEach to globalize gridID ***
 // *** refactor removeColors to remove global gridID ***
+// *** refactor playerWins and checkForDraw to remove redundancy ***
+// *** if the last move wins, it says draw ***
 
 
 // <><><> Select Individual Grid Elements and return ID >> ..
@@ -34,7 +34,7 @@ grids.forEach(grid => {
         changeTurn()
         logPosition(gridID)
         addColor(gridID)       
-        logPositions()
+        checkPositions()
     
         // console.log(gridID)
     });
@@ -75,7 +75,7 @@ function addColor(gridID) {
 }
 
 //  grid.AEL >> Log the positions of each player >> checkForWin()
-function logPositions() {
+function checkPositions() {
     var playerPositions = {
         whitePositions: '',
         invertPositions: ''
@@ -83,7 +83,6 @@ function logPositions() {
 
     for (var i = 0; i < gridPositions.length; i++) {
         if (gridPositions[i] === 'white') {
-            console.log(playerPositions.whitePositions)
             playerPositions.whitePositions += i.toString()
         } else if (gridPositions[i] === 'invert') {
             playerPositions.invertPositions += i.toString()
@@ -93,7 +92,6 @@ function logPositions() {
     // console.log("white: ", playerPositions.whitePositions)
     // console.log("invert: ", playerPositions.invertPositions)
     checkForWin(playerPositions,)
-    checkForDraw()
 }
 
 function checkForWin(playerPositions) {
@@ -102,12 +100,14 @@ function checkForWin(playerPositions) {
             playerWins('white');
         } else if (isWinConditionMet(condition, playerPositions.invertPositions)) {
             playerWins('invert');
+        } else {
+            checkForDraw()
         }
     });
 }
 
 function isWinConditionMet(condition, playerPositions) {
-    for (let char of condition) {
+    for (var char of condition) {
         if (!playerPositions.includes(char)) {
             return false;
         }
@@ -117,15 +117,9 @@ function isWinConditionMet(condition, playerPositions) {
 
 // CheckForWin() >> calls all the functions associated with a win >> ...
 function playerWins(player) {
-    gameActive = false
     increasePoints(player)
     announceWin(player) 
-    setTimeout(() => {
-        removeColors()
-        resetGridPoitions()
-        resetFieldText()
-        startNewGame()
-    }, 1000)
+    resetBoard()
 }
 
 // playerWins() >> increases player point count by 1 when the win condition is met
@@ -146,24 +140,26 @@ function announceWin(player) {
 function capitalizeFirstLetter(player) {
     return player.charAt(0).toUpperCase() + player.slice(1);
 }
-
-
 function checkForDraw() {
     if (!gridPositions.includes(null)) {
-        gameActive = false
         announceDraw()
-        setTimeout(() => {
-            removeColors()
-            resetGridPoitions()
-            resetFieldText()
-            startNewGame()
-        }, 1000)
     }
 }
 
 function announceDraw() {
     fieldText = document.querySelector(`#fieldText`)
     fieldText.innerText = `Draw`
+    resetBoard()
+}
+
+function resetBoard() {
+    gameActive = false
+    setTimeout(() => {
+        removeColors()
+        resetGridPoitions()
+        resetFieldText()
+        startNewGame()
+    }, 1000)
 }
 
 // playerWins() >> removes the color styling from the board
