@@ -18,7 +18,7 @@ var gridPositions =
 const winConditions = 
 ['012', '345', '678', '036', '147', '258', '048', '246']
 
-// *** if the last move wins, it says draw ***
+// *** refactor semantic tags
 
 // *** refactor logPositions ***
 // *** refactor grids.forEach to globalize gridID ***
@@ -42,14 +42,13 @@ grids.forEach(grid => {
 
 // grid.addEventListener >> Switches between players after they make a turn
 function changeTurn() {
-    var fieldText = document.getElementById(`fieldText`)
-
     if (isWhiteTurn === true) {
         isWhiteTurn = false
-        fieldText.innerText = "Invert's Turn"
+        updateFieldText("Invert's Turn")
+        
     } else {
         isWhiteTurn = true
-        fieldText.innerText = "White's Turn"
+        updateFieldText("White's Turn")
     }
 }
 
@@ -88,9 +87,6 @@ function checkPositions() {
             playerPositions.invertPositions += i.toString()
         }
     }
-
-    // console.log("white: ", playerPositions.whitePositions)
-    // console.log("invert: ", playerPositions.invertPositions)
     checkForWin(playerPositions,)
 }
 
@@ -113,13 +109,14 @@ function checkForWin(playerPositions) {
 }
 
 function isWinConditionMet(condition, playerPositions) {
-    for (var char of condition) {
-        if (!playerPositions.includes(char)) {
+    for (var i = 0; i < condition.length; i++) {
+        if (!playerPositions.includes(condition[i])) {
             return false;
         }
     }
     return true;
 }
+
 
 // CheckForWin() >> calls all the functions associated with a win >> ...
 function playerWins(player) {
@@ -138,8 +135,7 @@ function increasePoints(player) {
 
 // playerWins() >> Changes #fieldText to `${player} Wins!` >> capitalizeFirstLetter()
 function announceWin(player) {
-    fieldText = document.querySelector(`#fieldText`)
-    fieldText.innerText = `${capitalizeFirstLetter(player)} Wins!`
+    updateFieldText(`${capitalizeFirstLetter(player)} Wins!`)
 }
 
 // >> capatalizes the first letter of the player's name
@@ -153,8 +149,7 @@ function checkForDraw(win) {
 }
 
 function announceDraw() {
-    fieldText = document.querySelector(`#fieldText`)
-    fieldText.innerText = `Draw`
+    updateFieldText("Draw")
     resetBoard()
 }
 
@@ -187,12 +182,23 @@ function resetGridPoitions() {
 
 function resetFieldText() {
     if (isWhiteTurn === true) {
-        fieldText.innerText = "White's Turn"
+        updateFieldText("White's Turn")
     } else {
-        fieldText.innerText = "Invert's Turn"
+        updateFieldText("Invert's Turn")
     }
 }
 
 function startNewGame() {
     gameActive = true
+}
+
+function updateFieldText(newText) {
+    var fieldText = document.getElementById('fieldText');
+
+    fieldText.style.animation = 'none';
+    fieldText.offsetHeight; 
+    fieldText.style.animation = null; 
+
+    fieldText.innerText = newText;
+    fieldText.style.animation = 'fadeIn 1s'
 }

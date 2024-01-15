@@ -7,7 +7,7 @@ body {
     margin: 0;
 }
 
-section {
+main {
     display: flex;
     justify-content: space-between;
     align-items:center;
@@ -42,6 +42,10 @@ section {
 }
 
 /* <><><><><> Win <><><><><> */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
 #fieldText {
     position: absolute;
@@ -50,6 +54,10 @@ section {
     transform: translate(-50%, -50%);
     font-size: 60px;
     z-index: 1; 
+
+    animation-name: fadeIn;
+    animation-duration: 2s;  /* adjust the time as needed */
+    animation-fill-mode: both;
 }
 
 /* <><><><><> grid <><><><><> */
@@ -93,6 +101,18 @@ section {
     background-color: none;
     z-index: 1;
     padding-right: 20px;
+}
+
+#invert-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+#backgroundSelector {
+    display: flex;
+    font-size: xx-large;
 }
 
 #white-bubble {
