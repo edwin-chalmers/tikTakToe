@@ -18,11 +18,11 @@ var gridPositions =
 const winConditions = 
 ['012', '345', '678', '036', '147', '258', '048', '246']
 
+// *** if the last move wins, it says draw ***
+
 // *** refactor logPositions ***
 // *** refactor grids.forEach to globalize gridID ***
 // *** refactor removeColors to remove global gridID ***
-// *** refactor playerWins and checkForDraw to remove redundancy ***
-// *** if the last move wins, it says draw ***
 
 
 // <><><> Select Individual Grid Elements and return ID >> ..
@@ -95,13 +95,19 @@ function checkPositions() {
 }
 
 function checkForWin(playerPositions) {
+    var win = false
     winConditions.forEach(condition => {
         if (isWinConditionMet(condition, playerPositions.whitePositions)) {
             playerWins('white');
+            win = true
         } else if (isWinConditionMet(condition, playerPositions.invertPositions)) {
             playerWins('invert');
+            win = true
         } else {
-            checkForDraw()
+           setTimeout(() => {
+               checkForDraw(win)
+           }, 1)
+            
         }
     });
 }
@@ -140,8 +146,8 @@ function announceWin(player) {
 function capitalizeFirstLetter(player) {
     return player.charAt(0).toUpperCase() + player.slice(1);
 }
-function checkForDraw() {
-    if (!gridPositions.includes(null)) {
+function checkForDraw(win) {
+    if (!gridPositions.includes(null) && !win) {
         announceDraw()
     }
 }
