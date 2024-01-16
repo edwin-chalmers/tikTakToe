@@ -42,6 +42,7 @@ function changeTurn() {
     if (isWhiteTurn === true) {
         isWhiteTurn = false
         updateFieldText("Red's Turn")
+        
     } else {
         isWhiteTurn = true
         updateFieldText("White's Turn")
@@ -123,7 +124,7 @@ function playerWins(player) {
 
 // playerWins() >> increases player point count by 1 when the win condition is met
 function increasePoints(player) {
-    var points = document.querySelector(`#${player}-points`)
+    var points = document.querySelector(`#${player}Points`)
     score = parseInt(points.innerText)
     score += 1
     points.innerText = score
