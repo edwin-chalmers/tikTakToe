@@ -41,7 +41,6 @@ main {
     animation: scroll 600s linear infinite;
 }
 
-/* <><><><><> Win <><><><><> */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -56,12 +55,9 @@ main {
     z-index: 1; 
 
     animation-name: fadeIn;
-    animation-duration: 2s;  /* adjust the time as needed */
+    animation-duration: 2s;
     animation-fill-mode: both;
 }
-
-/* <><><><><> grid <><><><><> */
-
 
 #grid-whole {
     display: flex;
@@ -85,15 +81,15 @@ main {
 .grid {
     height: 100px;
     width: 100px;
-    background-color: rgba(255, 255, 255, 0.3);
+    border: 3px;
+    border-color: rgba(255, 255, 255, 0.7);
+    border-style: dotted;
     margin: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 30px;
 }
-
-/* <><><><><> columns <><><><><> */
 
 .column {
     height: 100vh;
@@ -116,26 +112,21 @@ main {
 }
 
 #white-bubble {
-    height: 300px;
-    width: 300px;
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 0px 200px 200px 200px;
     margin: 20px 0px 20px 20px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 #invert-bubble {
     filter: invert();
-    height: 300px;
-    width: 300px;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(128, 235, 230, 0.5);
     border-radius: 200px 0px 200px 200px;
     margin-top: 20px;
-    
+}
+
+.bubble-flex {
+    height: 300px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -158,8 +149,6 @@ main {
     margin: 0;
 }
 
-/* <><><><><> Global Styles <><><><><> */
-
 .circle {
     border-radius: 200px 200px 200px 200px;
 }
@@ -169,19 +158,19 @@ main {
 }
 
 .grid-color-white {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.5);
     box-shadow: 
-        0 0 10px 1px rgba(255, 255, 255, 0.7); 
+    0 0 10px 1px rgba(255, 255, 255, 0.7); 
     border: 3px #ffffff61;
     border-style: dotted;
-        
+    
 }
 .grid-color-invert {
-    border: 1px black;
-    filter: invert();
-    border: 3px #ffffff61;
+    background-color: rgba(119, 15, 15, 0.5);
+    border: 1px rgba(228, 14, 14, 0.5);
+    border: 3px #29090961;
     border-style: dotted;
-    box-shadow: 0 0 10px 1px rgba(253, 253, 253, 0.7);
+    box-shadow: 0 0 5px 1px rgba(202, 17, 17, 1);
 }
 
 .bubble-win {
@@ -192,4 +181,8 @@ main {
 
 .hidden {
     display: none;
+}
+
+.whiteText {
+    color: rgba(255, 255, 255, 0.7);
 }

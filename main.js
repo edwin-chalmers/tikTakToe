@@ -1,20 +1,13 @@
 const grids = document.querySelectorAll('.grid')
+const backgroundSelector = document.querySelector('#backgroundSelector')
+const backgroundImage = document.querySelector('#background-image')
+const fieldText = document.getElementById('fieldText');
 
-// <><><> Player 1
-const whitePoints = document.querySelector('#white-points')
 
-// <><><> Player 2
-// const invertPoints = document.querySelector('#invert-points')
-const invertBubble = document.querySelector('#invert-bubble')
-
-// <><><> Global Variables
 var isWhiteTurn = true
-
 var gameActive = true
-
 var gridPositions = 
 [null, null, null, null, null, null, null, null, null]
-
 const winConditions = 
 ['012', '345', '678', '036', '147', '258', '048', '246']
 
@@ -24,19 +17,17 @@ const winConditions =
 // *** refactor grids.forEach to globalize gridID ***
 // *** refactor removeColors to remove global gridID ***
 
-
 // <><><> Select Individual Grid Elements and return ID >> ..
 grids.forEach(grid => {
     grid.addEventListener("click", function() {
         if (!gameActive) return
         
         var gridID = grid.getAttribute('id')
-        changeTurn()
-        logPosition(gridID)
-        addColor(gridID)       
-        checkPositions()
-    
-        // console.log(gridID)
+        if (logPosition(gridID)) {
+            changeTurn()
+            addColor(gridID)       
+            checkPositions()
+        }
     });
 });
 
@@ -54,11 +45,15 @@ function changeTurn() {
 
 // grid.AEL >> Logs respective playercolor to the data playerPositions
 function logPosition(gridID) {
-    if (gridPositions[gridID] === null) {
+    if (gridPositions[gridID] !== null) {
+        return false
+    } else if (gridPositions[gridID] === null) {
         if (isWhiteTurn === true) {
             gridPositions[gridID] = 'invert'
+            return true
         } else {
             gridPositions[gridID] = 'white'
+            return true
         }
     }
 }
@@ -160,7 +155,7 @@ function resetBoard() {
         resetGridPoitions()
         resetFieldText()
         startNewGame()
-    }, 1000)
+    }, 2000)
 }
 
 // playerWins() >> removes the color styling from the board
@@ -193,8 +188,6 @@ function startNewGame() {
 }
 
 function updateFieldText(newText) {
-    var fieldText = document.getElementById('fieldText');
-
     fieldText.style.animation = 'none';
     fieldText.offsetHeight; 
     fieldText.style.animation = null; 
@@ -202,3 +195,15 @@ function updateFieldText(newText) {
     fieldText.innerText = newText;
     fieldText.style.animation = 'fadeIn 1s'
 }
+
+backgroundSelector.addEventListener("click", () => {
+    if (backgroundSelector.innerText === '💀') {
+        backgroundSelector.innerText = '🌻'
+        backgroundImage.style.backgroundImage = 'url("./assets/am-dead.jpg")';
+        fieldText.classList.add('whiteText')
+    } else {
+        backgroundSelector.innerText = '💀'
+        backgroundImage.style.backgroundImage = 'url("./assets/skelly-butterfly.jpg")';
+        fieldText.classList.remove('whiteText')
+    }
+})
