@@ -11,13 +11,6 @@ var gridPositions =
 const winConditions = 
 ['012', '345', '678', '036', '147', '258', '048', '246']
 
-// *** refactor semantic tags
-
-// *** refactor logPositions ***
-// *** refactor grids.forEach to globalize gridID ***
-// *** refactor removeColors to remove global gridID ***
-
-// <><><> Select Individual Grid Elements and return ID >> ..
 grids.forEach(grid => {
     grid.addEventListener("click", function() {
         if (!gameActive) return
@@ -33,7 +26,6 @@ grids.forEach(grid => {
     });
 });
 
-// grid.addEventListener >> Switches between players after they make a turn
 function checkForColor(gridID) {
     return gridPositions[gridID] === '';
 }
@@ -49,7 +41,6 @@ function changeTurn() {
     }
 }
 
-// grid.AEL >> Logs respective playercolor to the data playerPositions
 function logPosition(gridID) {
     if (gridPositions[gridID] === '') {
         if (isWhiteTurn) {
@@ -60,7 +51,6 @@ function logPosition(gridID) {
     }
 }
 
-// grid.AEL >> Changes the respective grid color based on playerPositions
 function addColor(gridID) {
     var grid = document.getElementById(`${gridID}`)
     if (gridPositions[gridID] === 'white') {
@@ -70,7 +60,6 @@ function addColor(gridID) {
     }
 }
 
-//  grid.AEL >> Log the positions of each player >> checkForWin()
 function checkPositions() {
     var playerPositions = {
         whitePositions: '',
@@ -114,28 +103,29 @@ function isWinConditionMet(condition, playerPositions) {
     return true;
 }
 
-
-// CheckForWin() >> calls all the functions associated with a win >> ...
 function playerWins(player) {
     increasePoints(player)
     announceWin(player) 
     resetBoard()
 }
 
-// playerWins() >> increases player point count by 1 when the win condition is met
 function increasePoints(player) {
-    var points = document.querySelector(`#${player}Points`)
-    score = parseInt(points.innerText)
-    score += 1
-    points.innerText = score
+    var points = document.querySelector(`#${player}Points`);
+    var score = parseInt(points.innerText);
+    score += 1;
+    points.innerText = score;
+
+ 
+    points.style.animation = 'none';
+    points.offsetHeight;
+    points.style.animation = ''; 
 }
 
-// playerWins() >> Changes #fieldText to `${player} Wins!` >> capitalizeFirstLetter()
 function announceWin(player) {
     updateFieldText(`${capitalizeFirstLetter(player)} Wins!`)
 }
 
-// >> capatalizes the first letter of the player's name
+
 function capitalizeFirstLetter(player) {
     return player.charAt(0).toUpperCase() + player.slice(1);
 }
@@ -160,7 +150,7 @@ function resetBoard() {
     }, 2000)
 }
 
-// playerWins() >> removes the color styling from the board
+
 function removeColors() {
     grids.forEach(grid => {
         var gridID = grid.getAttribute('id');
@@ -213,3 +203,4 @@ backgroundSelector.addEventListener("click", () => {
         fieldText.classList.remove('whiteText')
     }
 })
+
