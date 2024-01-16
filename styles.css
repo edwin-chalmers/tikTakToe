@@ -1,6 +1,5 @@
 * {
     font-family: 'WindSong', cursive;
-    /* background-color: blueviolet; */   
 }
 
 body {
@@ -147,6 +146,10 @@ main {
     color: (60, 60, 60);
     font-size: 80px;
     margin: 0;
+
+    animation-name: fadeIn;
+    animation-duration: 2s;
+    animation-fill-mode: both;
 }
 
 .circle {
