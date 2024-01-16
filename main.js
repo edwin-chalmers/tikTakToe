@@ -3,7 +3,10 @@ const backgroundSelector = document.querySelector('#backgroundSelector')
 const backgroundImage = document.querySelector('#backgroundImage')
 const fieldText = document.getElementById('fieldText');
 
-
+var score = {
+    white: 0,
+    red: 0
+}
 var isWhiteTurn = true
 var gameActive = true
 var gridPositions = 
@@ -110,15 +113,14 @@ function playerWins(player) {
 }
 
 function increasePoints(player) {
-    var points = document.querySelector(`#${player}Points`);
-    var score = parseInt(points.innerText);
-    score += 1;
-    points.innerText = score;
+    score[player]++;
+    
+    var pointsElement = document.querySelector(`#${player}Points`);
+    pointsElement.innerText = score[player];
 
- 
-    points.style.animation = 'none';
-    points.offsetHeight;
-    points.style.animation = ''; 
+    pointsElement.style.animation = 'none';
+    pointsElement.offsetHeight; 
+    pointsElement.style.animation = '';
 }
 
 function announceWin(player) {
