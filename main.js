@@ -1,29 +1,21 @@
 const grids = document.querySelectorAll('.grid')
+const backgroundSelector = document.querySelector('#backgroundSelector')
+const backgroundImage = document.querySelector('#background-image')
+const fieldText = document.getElementById('fieldText');
 
-// <><><> Player 1
-const whitePoints = document.querySelector('#white-points')
 
-// <><><> Player 2
-// const invertPoints = document.querySelector('#invert-points')
-const invertBubble = document.querySelector('#invert-bubble')
-
-// <><><> Global Variables
 var isWhiteTurn = true
-
 var gameActive = true
-
 var gridPositions = 
 [null, null, null, null, null, null, null, null, null]
-
 const winConditions = 
 ['012', '345', '678', '036', '147', '258', '048', '246']
 
-// *** if the last move wins, it says draw ***
+// *** refactor semantic tags
 
 // *** refactor logPositions ***
 // *** refactor grids.forEach to globalize gridID ***
 // *** refactor removeColors to remove global gridID ***
-
 
 // <><><> Select Individual Grid Elements and return ID >> ..
 grids.forEach(grid => {
@@ -31,35 +23,37 @@ grids.forEach(grid => {
         if (!gameActive) return
         
         var gridID = grid.getAttribute('id')
-        changeTurn()
-        logPosition(gridID)
-        addColor(gridID)       
-        checkPositions()
-    
-        // console.log(gridID)
+        if (logPosition(gridID)) {
+            changeTurn()
+            addColor(gridID)       
+            checkPositions()
+        }
     });
 });
 
 // grid.addEventListener >> Switches between players after they make a turn
 function changeTurn() {
-    var fieldText = document.getElementById(`fieldText`)
-
     if (isWhiteTurn === true) {
         isWhiteTurn = false
-        fieldText.innerText = "Invert's Turn"
+        updateFieldText("Invert's Turn")
+        
     } else {
         isWhiteTurn = true
-        fieldText.innerText = "White's Turn"
+        updateFieldText("White's Turn")
     }
 }
 
 // grid.AEL >> Logs respective playercolor to the data playerPositions
 function logPosition(gridID) {
-    if (gridPositions[gridID] === null) {
+    if (gridPositions[gridID] !== null) {
+        return false
+    } else if (gridPositions[gridID] === null) {
         if (isWhiteTurn === true) {
             gridPositions[gridID] = 'invert'
+            return true
         } else {
             gridPositions[gridID] = 'white'
+            return true
         }
     }
 }
@@ -88,9 +82,6 @@ function checkPositions() {
             playerPositions.invertPositions += i.toString()
         }
     }
-
-    // console.log("white: ", playerPositions.whitePositions)
-    // console.log("invert: ", playerPositions.invertPositions)
     checkForWin(playerPositions,)
 }
 
@@ -113,13 +104,14 @@ function checkForWin(playerPositions) {
 }
 
 function isWinConditionMet(condition, playerPositions) {
-    for (var char of condition) {
-        if (!playerPositions.includes(char)) {
+    for (var i = 0; i < condition.length; i++) {
+        if (!playerPositions.includes(condition[i])) {
             return false;
         }
     }
     return true;
 }
+
 
 // CheckForWin() >> calls all the functions associated with a win >> ...
 function playerWins(player) {
@@ -138,8 +130,7 @@ function increasePoints(player) {
 
 // playerWins() >> Changes #fieldText to `${player} Wins!` >> capitalizeFirstLetter()
 function announceWin(player) {
-    fieldText = document.querySelector(`#fieldText`)
-    fieldText.innerText = `${capitalizeFirstLetter(player)} Wins!`
+    updateFieldText(`${capitalizeFirstLetter(player)} Wins!`)
 }
 
 // >> capatalizes the first letter of the player's name
@@ -153,8 +144,7 @@ function checkForDraw(win) {
 }
 
 function announceDraw() {
-    fieldText = document.querySelector(`#fieldText`)
-    fieldText.innerText = `Draw`
+    updateFieldText("Draw")
     resetBoard()
 }
 
@@ -165,7 +155,7 @@ function resetBoard() {
         resetGridPoitions()
         resetFieldText()
         startNewGame()
-    }, 1000)
+    }, 2000)
 }
 
 // playerWins() >> removes the color styling from the board
@@ -187,12 +177,33 @@ function resetGridPoitions() {
 
 function resetFieldText() {
     if (isWhiteTurn === true) {
-        fieldText.innerText = "White's Turn"
+        updateFieldText("White's Turn")
     } else {
-        fieldText.innerText = "Invert's Turn"
+        updateFieldText("Invert's Turn")
     }
 }
 
 function startNewGame() {
     gameActive = true
 }
+
+function updateFieldText(newText) {
+    fieldText.style.animation = 'none';
+    fieldText.offsetHeight; 
+    fieldText.style.animation = null; 
+
+    fieldText.innerText = newText;
+    fieldText.style.animation = 'fadeIn 1s'
+}
+
+backgroundSelector.addEventListener("click", () => {
+    if (backgroundSelector.innerText === '💀') {
+        backgroundSelector.innerText = '🌻'
+        backgroundImage.style.backgroundImage = 'url("./assets/am-dead.jpg")';
+        fieldText.classList.add('whiteText')
+    } else {
+        backgroundSelector.innerText = '💀'
+        backgroundImage.style.backgroundImage = 'url("./assets/skelly-butterfly.jpg")';
+        fieldText.classList.remove('whiteText')
+    }
+})
