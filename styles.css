@@ -26,7 +26,7 @@ main {
     }
 }
 
-#background-image {
+#backgroundImage {
     background-image: url("./assets/skelly-butterfly.jpg");
     height: 100vh;
     width: 100%;
@@ -59,7 +59,7 @@ main {
     animation-fill-mode: both;
 }
 
-#grid-whole {
+#gridWhole {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -82,7 +82,7 @@ main {
     height: 100px;
     width: 100px;
     border: 3px;
-    border-color: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.8);
     border-style: dotted;
     margin: 5px;
     display: flex;
@@ -99,7 +99,7 @@ main {
     padding-right: 20px;
 }
 
-#invert-column {
+#redColumn {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -111,13 +111,13 @@ main {
     font-size: xx-large;
 }
 
-#white-bubble {
+#whiteBubble {
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 0px 200px 200px 200px;
     margin: 20px 0px 20px 20px;
 }
 
-#invert-bubble {
+#redBubble {
     filter: invert();
     background-color: rgba(128, 235, 230, 0.5);
     border-radius: 200px 0px 200px 200px;
@@ -165,7 +165,7 @@ main {
     border-style: dotted;
     
 }
-.grid-color-invert {
+.grid-color-red {
     background-color: rgba(119, 15, 15, 0.5);
     border: 1px rgba(228, 14, 14, 0.5);
     border: 3px #29090961;

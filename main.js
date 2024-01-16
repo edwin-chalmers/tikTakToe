@@ -1,13 +1,13 @@
 const grids = document.querySelectorAll('.grid')
 const backgroundSelector = document.querySelector('#backgroundSelector')
-const backgroundImage = document.querySelector('#background-image')
+const backgroundImage = document.querySelector('#backgroundImage')
 const fieldText = document.getElementById('fieldText');
 
 
 var isWhiteTurn = true
 var gameActive = true
 var gridPositions = 
-[null, null, null, null, null, null, null, null, null]
+['', '', '', '', '', '', '', '', '']
 const winConditions = 
 ['012', '345', '678', '036', '147', '258', '048', '246']
 
@@ -23,20 +23,25 @@ grids.forEach(grid => {
         if (!gameActive) return
         
         var gridID = grid.getAttribute('id')
-        if (logPosition(gridID)) {
+        if (checkForColor(gridID)) {
             changeTurn()
+            logPosition(gridID)
             addColor(gridID)       
             checkPositions()
         }
+        
     });
 });
 
 // grid.addEventListener >> Switches between players after they make a turn
+function checkForColor(gridID) {
+    return gridPositions[gridID] === '';
+}
+
 function changeTurn() {
     if (isWhiteTurn === true) {
         isWhiteTurn = false
-        updateFieldText("Invert's Turn")
-        
+        updateFieldText("Red's Turn")
     } else {
         isWhiteTurn = true
         updateFieldText("White's Turn")
@@ -45,15 +50,11 @@ function changeTurn() {
 
 // grid.AEL >> Logs respective playercolor to the data playerPositions
 function logPosition(gridID) {
-    if (gridPositions[gridID] !== null) {
-        return false
-    } else if (gridPositions[gridID] === null) {
-        if (isWhiteTurn === true) {
-            gridPositions[gridID] = 'invert'
-            return true
+    if (gridPositions[gridID] === '') {
+        if (isWhiteTurn) {
+            gridPositions[gridID] = 'red'
         } else {
             gridPositions[gridID] = 'white'
-            return true
         }
     }
 }
@@ -63,8 +64,8 @@ function addColor(gridID) {
     var grid = document.getElementById(`${gridID}`)
     if (gridPositions[gridID] === 'white') {
         grid.classList.add('grid-color-white') 
-    } else if (gridPositions[gridID] === 'invert') {
-        grid.classList.add('grid-color-invert') 
+    } else if (gridPositions[gridID] === 'red') {
+        grid.classList.add('grid-color-red') 
     }
 }
 
@@ -72,14 +73,14 @@ function addColor(gridID) {
 function checkPositions() {
     var playerPositions = {
         whitePositions: '',
-        invertPositions: ''
+        redPositions: ''
     }
 
     for (var i = 0; i < gridPositions.length; i++) {
         if (gridPositions[i] === 'white') {
             playerPositions.whitePositions += i.toString()
-        } else if (gridPositions[i] === 'invert') {
-            playerPositions.invertPositions += i.toString()
+        } else if (gridPositions[i] === 'red') {
+            playerPositions.redPositions += i.toString()
         }
     }
     checkForWin(playerPositions,)
@@ -91,8 +92,8 @@ function checkForWin(playerPositions) {
         if (isWinConditionMet(condition, playerPositions.whitePositions)) {
             playerWins('white');
             win = true
-        } else if (isWinConditionMet(condition, playerPositions.invertPositions)) {
-            playerWins('invert');
+        } else if (isWinConditionMet(condition, playerPositions.redPositions)) {
+            playerWins('red');
             win = true
         } else {
            setTimeout(() => {
@@ -138,7 +139,7 @@ function capitalizeFirstLetter(player) {
     return player.charAt(0).toUpperCase() + player.slice(1);
 }
 function checkForDraw(win) {
-    if (!gridPositions.includes(null) && !win) {
+    if (!gridPositions.includes('') && !win) {
         announceDraw()
     }
 }
@@ -149,7 +150,7 @@ function announceDraw() {
 }
 
 function resetBoard() {
-    gameActive = false
+    stopGame()
     setTimeout(() => {
         removeColors()
         resetGridPoitions()
@@ -164,22 +165,22 @@ function removeColors() {
         var gridID = grid.getAttribute('id');
         if (gridPositions[gridID] === 'white') {
             grid.classList.remove('grid-color-white') 
-        } else if (gridPositions[gridID] === 'invert') {
-            grid.classList.remove('grid-color-invert') 
+        } else if (gridPositions[gridID] === 'red') {
+            grid.classList.remove('grid-color-red') 
         }
     })
 }
 
 function resetGridPoitions() {
     gridPositions = 
-    [null, null, null, null, null, null, null, null, null]
+    ['', '', '', '', '', '', '', '', '']
 }
 
 function resetFieldText() {
     if (isWhiteTurn === true) {
         updateFieldText("White's Turn")
     } else {
-        updateFieldText("Invert's Turn")
+        updateFieldText("Red's Turn")
     }
 }
 
@@ -187,10 +188,14 @@ function startNewGame() {
     gameActive = true
 }
 
+function stopGame() {
+    gameActive = false
+}
+
 function updateFieldText(newText) {
     fieldText.style.animation = 'none';
     fieldText.offsetHeight; 
-    fieldText.style.animation = null; 
+    fieldText.style.animation = ''; 
 
     fieldText.innerText = newText;
     fieldText.style.animation = 'fadeIn 1s'
