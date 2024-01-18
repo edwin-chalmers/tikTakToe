@@ -25,7 +25,6 @@ grids.forEach(grid => {
             addColor(gridID)       
             checkPositions()
         }
-        
     });
 });
 
