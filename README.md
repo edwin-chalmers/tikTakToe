@@ -8,16 +8,17 @@ I bilt an interactive web-based version of the classic game Tic Tac Toe, with a 
 
 ### Installation Instructions:
 
-The user needs to fork the repository and clone to their local machine. Open in word editor of their choice and launch the website from there.
+The app can be accessed here!
 
+https://edwin-chalmers.github.io/tikTakToe
  
 
 ### Preview of App:
 
-The app can be accessed here!
+I'm proud with how the light and dark mode turned out. It took a lot of adjusting to get the colors to work over both backgrounds. 
 
-https://edwin-chalmers.github.io/tikTakToe
-
+![Light Mode](./assets/skelly-light.jpg)
+![Light Mode](./assets/skelly-dark.jpg)
 
 
 ### Context:
