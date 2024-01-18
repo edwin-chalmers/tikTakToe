@@ -14,7 +14,9 @@ The user needs to fork the repository and clone to their local machine. Open in 
 
 ### Preview of App:
 
-./assets/screen-shot
+The app can be accessed here!
+
+https://edwin-chalmers.github.io/tikTakToe
 
 
 
