@@ -18,7 +18,7 @@ https://edwin-chalmers.github.io/tikTakToe
 I'm proud with how the light and dark mode turned out. It took a lot of adjusting to get the colors to work over both backgrounds. 
 
 ![Light Mode](./assets/skelly-light.jpg)
-![Light Mode](./assets/skelly-dark.jpg)
+![Dark Mode](./assets/skelly-dark.jpg)
 
 
 ### Context:
